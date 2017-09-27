@@ -1,12 +1,16 @@
-# Polytech-Mobile
-Mobile project
+# EZRun
 
-idées de projet: 
+## Principe
 
-- Trajet partagé
+Cette application permet de mesurer la distance parcourue lors d'une course ou d'une marche. Les données collectées (altitude, distance, temps, ...) sont analysées pour distinguer quel type de parcours vous avez fait aujourd'hui (facile, moyen, difficile).
 
-- Donner les batiments à proximité, mais à la limite avec un tri/filtre pour pas que ça soit too easy ?
+## Equipe
+* Rémy KALOUSTIAN - SI5
+* Adrian PALUMBO - SI5
 
-- Compter la distance marchée( avec des stats (distance laplus grande etc...))
+## Développement
+Le langage cible n'est pas encore déterminé.
 
-
+## Plateformes visées
+* iOS
+* Android
