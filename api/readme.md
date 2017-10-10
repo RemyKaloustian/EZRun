@@ -17,7 +17,7 @@ You can launch the API with the script _(you need **PHP** and **Composer** to ru
   $ > ./scripts/run.sh
   ```
   
- The api will be listening on `http://localhost:8080/` by default, unless you pass one argument corresponding to the port number to the run script.
+ The api will be listening on `http://localhost:8080/` by default, unless you pass one argument corresponding to the port number to the script.
  
  ### Documentation
  
