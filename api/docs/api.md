@@ -4,14 +4,12 @@
 
 Here you can send data to the api. 
 
-Data expected to be in JSON format. JSON returned.
-
-#### Data expected
+#### Data expected `JSON`
 * __walkTime__: walk time, in seconds.
 * __startPosition__: where the run started, longitude and latitude comma-separated.
 * __endPosition__: where the run ended, longitude and latitude comma-separated.
 
-#### Data Example
+#### Data Example `JSON`
 ```json
 INPUT:
 
