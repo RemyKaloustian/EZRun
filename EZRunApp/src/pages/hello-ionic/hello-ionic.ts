@@ -27,13 +27,21 @@ export class HelloIonicPage {
     public _button_text = "START";
     public _time_text = "Let's go baby !";
 
-    constructor(private navCtrl: NavController,  private geolocation: Geolocation, private device: Device, private http:Http, private alertCtrl: AlertController) {
+    public _api_url = "http://172.20.10.3:8080/";
 
+    constructor(private navCtrl: NavController,  private geolocation: Geolocation, private device: Device, private http:Http, private alertCtrl: AlertController)
+        { }
 
-    }//constructor
+    public alert(title: string, msg: string, btn: [string]) {
+        let alert = this.alertCtrl.create({
+            title: title,
+            subTitle: msg,
+            buttons: btn
+        });
+        alert.present();
+    }
 
-    ToggleTimer()
-    {
+    ToggleTimer() {
         this._uid ="UID = " + this.device.uuid;
 
         if(this._button_text == "START") {
@@ -48,12 +56,8 @@ export class HelloIonicPage {
                     this._button_text = "STOP";
                 },
                 err => {
-                    let alert = this.alertCtrl.create({
-                        title: 'Error',
-                        subTitle: 'We were not able to retreive your GPS location.',
-                        buttons: ['OK']
-                    });
-                    alert.present();
+                    this.alert('Error', 'We were not able to retreive your GPS location.', ['OK']);
+                    console.log(JSON.stringify(err.json()));
                 });
         }
         else if(this._button_text == "STOP")
@@ -74,22 +78,18 @@ export class HelloIonicPage {
 
             // API URL ?
             this.http
-                .post('http://localhost:8080/', {
+                .post(this._api_url, {
                     walkTime: this._final_time,
                     startPosition: this._start_lat +","+this._start_lon,
                     endPosition: this._end_lat +","+this._end_lon
                 })
                 .subscribe(
                     data => {
+                        this.alert('Run', "You ran about "+ data.json().walkTime +" seconds.", ['Amazing!']);
                         console.table(data.json());
-                        let alert = this.alertCtrl.create({
-                            title: 'Run',
-                            subTitle: "You ran about "+ data.json().walkTime +" seconds.",
-                            buttons: ['Amazing!']
-                        });
-                        alert.present();
                     },
                     error => {
+                        this.alert('Error', JSON.stringify(error.json()), ['OK']);
                         console.log(JSON.stringify(error.json()));
                     });
         }
