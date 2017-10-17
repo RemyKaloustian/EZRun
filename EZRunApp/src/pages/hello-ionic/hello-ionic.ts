@@ -27,6 +27,8 @@ export class HelloIonicPage {
     public _button_text = "START";
     public _time_text = "Let's go baby !";
 
+    // Cette URL (172.20.10.3 ou localhost ou autre) doit etre
+    // la même dans le script de lancement de l'API !!
     public _api_url = "http://172.20.10.3:8080/";
 
     constructor(private navCtrl: NavController,  private geolocation: Geolocation, private device: Device, private http:Http, private alertCtrl: AlertController)
