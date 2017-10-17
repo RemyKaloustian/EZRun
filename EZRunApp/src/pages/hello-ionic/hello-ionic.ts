@@ -31,6 +31,8 @@ export class HelloIonicPage {
     // la même dans le script de lancement de l'API !!
     public _api_url = "http://localhost:8080/";
 
+    public difficulty = null;
+
     constructor(private navCtrl: NavController,  private geolocation: Geolocation, private device: Device, private http:Http, private alertCtrl: AlertController)
         { }
 
@@ -49,14 +51,14 @@ export class HelloIonicPage {
 
         this.http
             .post(this._api_url, {
-                walkTime        : this._final_time,
-                startPosition   : this._start_lat +","+this._start_lon,
-                endPosition     : this._end_lat +","+this._end_lon,
-                udid            : this._udid
+                walkTime        : "1800",
+                startPosition   : "1.45343434,2",
+                endPosition     : "1.45343434,2",
+                udid            : "1234"
             })
             .subscribe(
                 data => {
-                    this.alert('Run', "You ran about "+ data.json().walkTime +" seconds.", ['Amazing!']);
+                    this.difficulty = data.json().level;
                     console.table(data.json());
                 },
                 error => {
@@ -106,7 +108,7 @@ export class HelloIonicPage {
                 })
                 .subscribe(
                     data => {
-                        this.alert('Run', "You ran about "+ data.json().walkTime +" seconds.", ['Amazing!']);
+                        this.difficulty = data.json().level;
                         console.table(data.json());
                     },
                     error => {

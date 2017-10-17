@@ -71,6 +71,7 @@ var HelloIonicPage = (function () {
         // Cette URL (172.20.10.3 ou localhost ou autre) doit etre
         // la même dans le script de lancement de l'API !!
         this._api_url = "http://localhost:8080/";
+        this.difficulty = null;
     }
     HelloIonicPage.prototype.alert = function (title, msg, btn) {
         var alert = this.alertCtrl.create({
@@ -86,13 +87,13 @@ var HelloIonicPage = (function () {
         this._udid = "1234567890";
         this.http
             .post(this._api_url, {
-            walkTime: this._final_time,
-            startPosition: this._start_lat + "," + this._start_lon,
-            endPosition: this._end_lat + "," + this._end_lon,
-            udid: this._udid
+            walkTime: "1800",
+            startPosition: "1.45343434,2",
+            endPosition: "1.45343434,2",
+            udid: "1234"
         })
             .subscribe(function (data) {
-            _this.alert('Run', "You ran about " + data.json().walkTime + " seconds.", ['Amazing!']);
+            _this.difficulty = data.json().level;
             console.table(data.json());
         }, function (error) {
             _this.alert('Error', JSON.stringify(error.json()), ['OK']);
@@ -131,7 +132,7 @@ var HelloIonicPage = (function () {
                 udid: this._udid
             })
                 .subscribe(function (data) {
-                _this.alert('Run', "You ran about " + data.json().walkTime + " seconds.", ['Amazing!']);
+                _this.difficulty = data.json().level;
                 console.table(data.json());
             }, function (error) {
                 _this.alert('Error', JSON.stringify(error.json()), ['OK']);
@@ -143,7 +144,7 @@ var HelloIonicPage = (function () {
 }()); //HelloIonicPage
 HelloIonicPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-hello-ionic',template:/*ion-inline-start:"/Users/Adrian/Polytech/Polytech - SI5/Mobile/EZRun/EZRunApp/src/pages/hello-ionic/hello-ionic.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>EZRun</ion-title>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content padding>\n\n  <h3>{{_time_text}}</h3>\n\n    <button ion-button color="primary" (click)=\'ToggleTimer()\'>{{_button_text}}</button>\n<p>\n  {{_geo_text}}\n</p>\n\n<p>\n  UDID: {{_uid}}\n</p>\n\n</ion-content>\n'/*ion-inline-end:"/Users/Adrian/Polytech/Polytech - SI5/Mobile/EZRun/EZRunApp/src/pages/hello-ionic/hello-ionic.html"*/
+        selector: 'page-hello-ionic',template:/*ion-inline-start:"/Users/Adrian/Polytech/Polytech - SI5/Mobile/EZRun/EZRunApp/src/pages/hello-ionic/hello-ionic.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>EZRun</ion-title>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content padding>\n\n  <h3>{{_time_text}}</h3>\n\n    <button ion-button color="primary" (click)=\'ToggleTimer()\'>{{_button_text}}</button>\n<p>\n  {{_geo_text}}\n</p>\n\n<p>\n  UDID: {{_uid}}\n</p>\n\n<h3 *ngIf="difficulty != null" [ngClass]="{\'easy\': difficulty == \'Facile\', \'medium\': difficulty == \'Moyen\', \'hard\': difficulty == \'Difficile\'}">\n  {{ difficulty }}\n</h3>\n\n</ion-content>\n'/*ion-inline-end:"/Users/Adrian/Polytech/Polytech - SI5/Mobile/EZRun/EZRunApp/src/pages/hello-ionic/hello-ionic.html"*/
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_device__["a" /* Device */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_device__["a" /* Device */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _e || Object])
 ], HelloIonicPage);

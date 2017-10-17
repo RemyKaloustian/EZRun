@@ -25511,3 +25511,20 @@ ion-navbar.toolbar {
   height: calc(46px + constant(safe-area-inset-top));
   min-height: calc(46px + constant(safe-area-inset-top));
 }
+
+.easy, .medium, .hard {
+  border-top: 1px solid gainsboro;
+  padding: 10px 10px;
+}
+
+.easy {
+  color: green;
+}
+
+.medium {
+  color: orange;
+}
+
+.hard {
+  color: red;
+}

@@ -18,4 +18,8 @@
   UDID: {{_uid}}
 </p>
 
+<h3 *ngIf="difficulty != null" [ngClass]="{'easy': difficulty == 'Facile', 'medium': difficulty == 'Moyen', 'hard': difficulty == 'Difficile'}">
+  {{ difficulty }}
+</h3>
+
 </ion-content>
