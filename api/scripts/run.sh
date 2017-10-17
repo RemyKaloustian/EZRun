@@ -14,7 +14,7 @@ memcached -d
 composer install
 
 # Set the database
-#php artisan migrate
+php artisan migrate
 
 if [ -z "$1" ]; then
     php -S localhost:8080 -t public/
