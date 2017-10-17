@@ -16,3 +16,5 @@ $router->get('/', function () use ($router) {
 });
 
 $router->post('/','RunController@postData');
+
+$router->get('/{id}','RunController@getRunsForUdid');
