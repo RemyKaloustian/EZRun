@@ -12,9 +12,10 @@ use Illuminate\Http\Request;
 
 class RunController extends Controller {
 
-    public function postData(Request $request){
+    public function postData(Request $request) {
         return response()->json([
-            'walkTime' => $request->input('walkTime', 'NONE')
+            'walkTime'  => $request->input('walkTime', 'NONE'),
+            'udid'      => $request->input('udid', 'null')
         ]);
     }
 
