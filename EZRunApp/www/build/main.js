@@ -58,13 +58,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var HelloIonicPage = (function () {
-    function HelloIonicPage(navCtrl, geolocation, device, http) {
+    function HelloIonicPage(navCtrl, geolocation, device, http, alertCtrl) {
         this.navCtrl = navCtrl;
         this.geolocation = geolocation;
         this.device = device;
         this.http = http;
+        this.alertCtrl = alertCtrl;
         this._uid = "UID";
         this._button_text = "START";
         this._time_text = "Let's go baby !";
@@ -77,10 +77,17 @@ var HelloIonicPage = (function () {
                 _this._start_lat = pos.coords.latitude;
                 _this._start_lon = pos.coords.longitude;
                 _this._geo_text = " Your position at the start is : " + 'lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude;
+                _this._start_date = new Date();
+                _this._time_text = "Running...";
+                _this._button_text = "STOP";
+            }, function (err) {
+                var alert = _this.alertCtrl.create({
+                    title: 'Error',
+                    subTitle: 'We were not able to retreive your GPS location.',
+                    buttons: ['OK']
+                });
+                alert.present();
             });
-            this._start_date = new Date();
-            this._time_text = "Running...";
-            this._button_text = "STOP";
         }
         else if (this._button_text == "STOP") {
             this.geolocation.getCurrentPosition().then(function (pos) {
@@ -93,12 +100,21 @@ var HelloIonicPage = (function () {
             this._final_time = Math.floor(Number((this._end_date.getTime() / 1000) / 60 - (this._start_date.getTime() / 1000) / 60));
             this._time_text = "You moved for " + this._final_time + " minutes.";
             //sending request to server
-            var urlParams = new __WEBPACK_IMPORTED_MODULE_4__angular_http__["b" /* URLSearchParams */]();
-            urlParams.append('walkTime', this._final_time);
-            urlParams.append('startPosition', this._start_lat + "," + this._start_lon);
-            urlParams.append('endPosition', this._end_lat + "," + this._end_lon);
-            this.http.post('/api', urlParams).subscribe(function (data) {
-                alert('ok');
+            // API URL ?
+            this.http
+                .post('http://localhost:8080/', {
+                walkTime: this._final_time,
+                startPosition: this._start_lat + "," + this._start_lon,
+                endPosition: this._end_lat + "," + this._end_lon
+            })
+                .subscribe(function (data) {
+                console.table(data.json());
+                var alert = _this.alertCtrl.create({
+                    title: 'Run',
+                    subTitle: "You ran about " + data.json().walkTime + " seconds.",
+                    buttons: ['Amazing!']
+                });
+                alert.present();
             }, function (error) {
                 console.log(JSON.stringify(error.json()));
             });
@@ -108,12 +124,12 @@ var HelloIonicPage = (function () {
 }()); //HelloIonicPage
 HelloIonicPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-hello-ionic',template:/*ion-inline-start:"C:\Users\Rémy Kaloustian\Desktop\WORK\MOBILE\EZRun\EZRunApp\src\pages\hello-ionic\hello-ionic.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>EZRun</ion-title>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content padding>\n\n  <h3>{{_time_text}}</h3>\n\n    <button ion-button color="primary" (click)=\'ToggleTimer()\'>{{_button_text}}</button>\n<p>\n  {{_geo_text}}\n</p>\n\n<p>\n  {{_uid}}\n</p>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\Rémy Kaloustian\Desktop\WORK\MOBILE\EZRun\EZRunApp\src\pages\hello-ionic\hello-ionic.html"*/
+        selector: 'page-hello-ionic',template:/*ion-inline-start:"/Users/Adrian/Polytech/Polytech - SI5/Mobile/EZRun/EZRunApp/src/pages/hello-ionic/hello-ionic.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>EZRun</ion-title>\n  </ion-navbar>\n</ion-header>\n\n\n<ion-content padding>\n\n  <h3>{{_time_text}}</h3>\n\n    <button ion-button color="primary" (click)=\'ToggleTimer()\'>{{_button_text}}</button>\n<p>\n  {{_geo_text}}\n</p>\n\n<p>\n  {{_uid}}\n</p>\n\n</ion-content>\n'/*ion-inline-end:"/Users/Adrian/Polytech/Polytech - SI5/Mobile/EZRun/EZRunApp/src/pages/hello-ionic/hello-ionic.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_device__["a" /* Device */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_device__["a" /* Device */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* HttpModule */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* HttpModule */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_device__["a" /* Device */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_device__["a" /* Device */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _e || Object])
 ], HelloIonicPage);
 
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=hello-ionic.js.map
 
 /***/ }),
@@ -162,9 +178,9 @@ var ListPage = (function () {
 }());
 ListPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-list',template:/*ion-inline-start:"C:\Users\Rémy Kaloustian\Desktop\WORK\MOBILE\EZRun\EZRunApp\src\pages\list\list.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>My First List</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">\n      <ion-icon name="{{item.icon}}" item-left></ion-icon>\n      {{item.title}}\n      <div class="item-note" item-right>\n        {{item.note}}\n      </div>\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Rémy Kaloustian\Desktop\WORK\MOBILE\EZRun\EZRunApp\src\pages\list\list.html"*/
+        selector: 'page-list',template:/*ion-inline-start:"/Users/Adrian/Polytech/Polytech - SI5/Mobile/EZRun/EZRunApp/src/pages/list/list.html"*/'<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>My First List</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">\n      <ion-icon name="{{item.icon}}" item-left></ion-icon>\n      {{item.title}}\n      <div class="item-note" item-right>\n        {{item.note}}\n      </div>\n    </button>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/Adrian/Polytech/Polytech - SI5/Mobile/EZRun/EZRunApp/src/pages/list/list.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
 ], ListPage);
 
 //# sourceMappingURL=list.js.map
@@ -200,9 +216,9 @@ var ItemDetailsPage = (function () {
 }());
 ItemDetailsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-item-details',template:/*ion-inline-start:"C:\Users\Rémy Kaloustian\Desktop\WORK\MOBILE\EZRun\EZRunApp\src\pages\item-details\item-details.html"*/'<ion-header>\n  <ion-navbar>\n    <button menuToggle *ngIf="!selectedItem">\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Item Details</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <h3 text-center *ngIf="selectedItem">\n    {{selectedItem.title}}\n    <ion-icon [name]="selectedItem.icon"></ion-icon>\n  </h3>\n  <h4 text-center *ngIf="selectedItem">\n    You navigated here from <b>{{selectedItem.title}}</b>\n  </h4>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Rémy Kaloustian\Desktop\WORK\MOBILE\EZRun\EZRunApp\src\pages\item-details\item-details.html"*/
+        selector: 'page-item-details',template:/*ion-inline-start:"/Users/Adrian/Polytech/Polytech - SI5/Mobile/EZRun/EZRunApp/src/pages/item-details/item-details.html"*/'<ion-header>\n  <ion-navbar>\n    <button menuToggle *ngIf="!selectedItem">\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Item Details</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <h3 text-center *ngIf="selectedItem">\n    {{selectedItem.title}}\n    <ion-icon [name]="selectedItem.icon"></ion-icon>\n  </h3>\n  <h4 text-center *ngIf="selectedItem">\n    You navigated here from <b>{{selectedItem.title}}</b>\n  </h4>\n</ion-content>\n'/*ion-inline-end:"/Users/Adrian/Polytech/Polytech - SI5/Mobile/EZRun/EZRunApp/src/pages/item-details/item-details.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
 ], ItemDetailsPage);
 
 //# sourceMappingURL=item-details.js.map
@@ -273,12 +289,12 @@ AppModule = __decorate([
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
+            __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                 links: []
             }),
-            __WEBPACK_IMPORTED_MODULE_11__angular_http__["a" /* HttpModule */]
+            __WEBPACK_IMPORTED_MODULE_11__angular_http__["b" /* HttpModule */]
         ],
-        bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["a" /* IonicApp */]],
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicApp */]],
         entryComponents: [
             __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */],
             __WEBPACK_IMPORTED_MODULE_4__pages_hello_ionic_hello_ionic__["a" /* HelloIonicPage */],
@@ -286,12 +302,12 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_6__pages_list_list__["a" /* ListPage */]
         ],
         providers: [
-            __WEBPACK_IMPORTED_MODULE_11__angular_http__["a" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_11__angular_http__["b" /* HttpModule */],
             __WEBPACK_IMPORTED_MODULE_10__ionic_native_device__["a" /* Device */],
             __WEBPACK_IMPORTED_MODULE_9__ionic_native_geolocation__["a" /* Geolocation */],
             __WEBPACK_IMPORTED_MODULE_7__ionic_native_status_bar__["a" /* StatusBar */],
             __WEBPACK_IMPORTED_MODULE_8__ionic_native_splash_screen__["a" /* SplashScreen */],
-            { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicErrorHandler */] }
+            { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicErrorHandler */] }
         ]
     })
 ], AppModule);
@@ -359,14 +375,14 @@ var MyApp = (function () {
     return MyApp;
 }());
 __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Nav */]),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Nav */])
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Nav */]),
+    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* Nav */])
 ], MyApp.prototype, "nav", void 0);
 MyApp = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\Rémy Kaloustian\Desktop\WORK\MOBILE\EZRun\EZRunApp\src\app\app.html"*/'\n\n<ion-menu [content]="content">\n\n  <ion-header>\n    <ion-toolbar>\n      <ion-title>Pages</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-content>\n    <ion-list>\n      <button ion-item *ngFor="let p of pages" (click)="openPage(p)">\n        {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n'/*ion-inline-end:"C:\Users\Rémy Kaloustian\Desktop\WORK\MOBILE\EZRun\EZRunApp\src\app\app.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"/Users/Adrian/Polytech/Polytech - SI5/Mobile/EZRun/EZRunApp/src/app/app.html"*/'\n\n<ion-menu [content]="content">\n\n  <ion-header>\n    <ion-toolbar>\n      <ion-title>Pages</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-content>\n    <ion-list>\n      <button ion-item *ngFor="let p of pages" (click)="openPage(p)">\n        {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n'/*ion-inline-end:"/Users/Adrian/Polytech/Polytech - SI5/Mobile/EZRun/EZRunApp/src/app/app.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Platform */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* MenuController */],
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */],
+        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* MenuController */],
         __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */],
         __WEBPACK_IMPORTED_MODULE_5__ionic_native_splash_screen__["a" /* SplashScreen */]])
 ], MyApp);
