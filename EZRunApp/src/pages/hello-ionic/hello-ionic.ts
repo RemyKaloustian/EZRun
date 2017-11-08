@@ -32,6 +32,7 @@ export class HelloIonicPage {
     public _api_url = "http://localhost:8080/";
 
     public difficulty = null;
+    public error = false;
 
     constructor(private navCtrl: NavController,  private geolocation: Geolocation, private device: Device, private http:Http, private alertCtrl: AlertController)
         { }
@@ -109,10 +110,12 @@ export class HelloIonicPage {
                 .subscribe(
                     data => {
                         this.difficulty = data.json().level;
+                        this.error = false;
                         console.table(data.json());
                     },
                     error => {
-                        this.alert('Error', JSON.stringify(error.json()), ['OK']);
+                        this.alert('Error', 'An error occured while trying to communicate with the server.', ['Damn it!']);
+                        this.error = true;
                         console.log(JSON.stringify(error.json()));
                     });
         }

@@ -85,20 +85,22 @@ var HelloIonicPage = (function () {
         var _this = this;
         this._udid = this.device.uuid;
         this._udid = "1234567890";
-        this.http
-            .post(this._api_url, {
-            walkTime: "1800",
-            startPosition: "1.45343434,2",
-            endPosition: "1.45343434,2",
-            udid: "1234"
-        })
-            .subscribe(function (data) {
-            _this.difficulty = data.json().level;
-            console.table(data.json());
-        }, function (error) {
-            _this.alert('Error', JSON.stringify(error.json()), ['OK']);
-            console.log(JSON.stringify(error.json()));
-        });
+        // this.http
+        //     .post(this._api_url, {
+        //         walkTime        : "1800",
+        //         startPosition   : "1.45343434,2",
+        //         endPosition     : "1.45343434,2",
+        //         udid            : "1234"
+        //     })
+        //     .subscribe(
+        //         data => {
+        //             this.difficulty = data.json().level;
+        //             console.table(data.json());
+        //         },
+        //         error => {
+        //             this.alert('Error', JSON.stringify(error.json()), ['OK']);
+        //             console.log(JSON.stringify(error.json()));
+        //         });
         if (this._button_text == "START") {
             this.geolocation.getCurrentPosition().then(function (pos) {
                 _this._start_lat = pos.coords.latitude;
