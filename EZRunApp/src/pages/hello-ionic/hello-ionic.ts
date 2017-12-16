@@ -46,6 +46,26 @@ export class HelloIonicPage {
         alert.present();
     }
 
+    /**
+     * Convert the final time in minutes from milliseconds.
+     *
+     * @returns {number}
+     *          The final time in minutes
+     */
+    public getFinalTimeInMinutes() {
+        return Math.floor(this.getFinalTimeInSeconds()/60);
+    }
+
+    /**
+     * Convert the final time in seconds from milliseconds.
+     *
+     * @returns {number}
+     *          The final time in seconds
+     */
+    public getFinalTimeInSeconds() {
+        return Math.floor(this._final_time/1000);
+    }
+
     ToggleTimer() {
         this._udid = this.device.uuid;
         this._udid = "1234567890";
@@ -94,15 +114,15 @@ export class HelloIonicPage {
             });
             this._end_date = new Date();
             this._button_text = "START";
-            this._final_time = Math.floor(Number((this._end_date.getTime()/1000)/60 - (this._start_date.getTime()/1000)/60));
-            this._time_text = "You moved for "+ this._final_time + " minutes.";
+            this._final_time = this._end_date.getTime() - this._start_date.getTime();
+            this._time_text = "You moved for "+ this.getFinalTimeInMinutes() + " minutes.";
 
             //sending request to server
 
             // API URL ?
             this.http
                 .post(this._api_url, {
-                    walkTime        : this._final_time,
+                    walkTime        : this.getFinalTimeInSeconds(),
                     startPosition   : this._start_lat +","+this._start_lon,
                     endPosition     : this._end_lat +","+this._end_lon,
                     udid            : this._udid
