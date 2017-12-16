@@ -33,6 +33,7 @@ export class HelloIonicPage {
 
     public difficulty = null;
     public error = false;
+    public errorMsg = "";
 
     constructor(private navCtrl: NavController,  private geolocation: Geolocation, private device: Device, private http:Http, private alertCtrl: AlertController)
         { }
@@ -111,35 +112,35 @@ export class HelloIonicPage {
 
                 this._geo_text =" Your position at the end is : " + 'lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude;
 
+                this._end_date = new Date();
+                this._button_text = "START";
+                this._final_time = this._end_date.getTime() - this._start_date.getTime();
+                this._time_text = "You moved for "+ this.getFinalTimeInMinutes() + " minutes";
+                this._time_text += (this.getFinalTimeInSeconds() !== 0) ? " and "+ this.getFinalTimeInSeconds() +" seconds." : ".";
+
+                //sending request to server
+
+                // API URL ?
+                this.http
+                    .post(this._api_url, {
+                        walkTime        : this.getFinalTimeInSeconds(),
+                        startPosition   : this._start_lat +","+this._start_lon,
+                        endPosition     : this._end_lat +","+this._end_lon,
+                        udid            : this._udid
+                    })
+                    .subscribe(
+                        data => {
+                            this.difficulty = data.json().level;
+                            this.error = false;
+                            console.table(data.json());
+                        },
+                        error => {
+                            this.alert('Error', 'An error occured while trying to communicate with the server.', ['Damn it!']);
+                            this.error = true;
+                            this.errorMsg = error.json().message;
+                            console.log(JSON.stringify(error.json()));
+                        });
             });
-            this._end_date = new Date();
-            this._button_text = "START";
-            this._final_time = this._end_date.getTime() - this._start_date.getTime();
-            this._time_text = "You moved for "+ this.getFinalTimeInMinutes() + " minutes";
-            this._time_text += (this.getFinalTimeInSeconds() !== 0) ? " and "+ this.getFinalTimeInSeconds() +" seconds." : ".";
-
-            //sending request to server
-
-            // API URL ?
-            this.http
-                .post(this._api_url, {
-                    walkTime        : this.getFinalTimeInSeconds(),
-                    startPosition   : this._start_lat +","+this._start_lon,
-                    endPosition     : this._end_lat +","+this._end_lon,
-                    udid            : this._udid
-                })
-                .subscribe(
-                    data => {
-                        this.difficulty = data.json().level;
-                        this.error = false;
-                        console.table(data.json());
-                    },
-                    error => {
-                        this.alert('Error', 'm An error occured while trying to communicate with the server.', ['Damn it!']);
-                        this.error = true;
-                        this._time_text = JSON.stringify(error.json());
-                        console.log(JSON.stringify(error.json()));
-                    });
         }
     }//ToggleTimer()
 

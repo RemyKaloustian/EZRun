@@ -22,8 +22,8 @@
   {{ difficulty }}
 </h3>
 
-<h3 *ngIf="difficulty != null" class="error">
-  {{ difficulty }}
-</h3>
+<div *ngIf="error" class="alert alert-danger">
+  {{ errorMsg }}
+</div>
 
 </ion-content>

@@ -92,7 +92,7 @@ class RunController extends Controller {
 
         // Check for the end position
         if (!$this->checkForCoordinatesPresents($request->input('endPosition')))
-            return response(["message" => "EndPosition: invalid coordinates."], 400);
+            return response(["message" => "EndPosition: invalid coordinates. Received: ". $request->input('endPosition')], 400);
 
         $startPos   = explode(RunController::$POS_DELIMITER, $request->input('startPosition'));
         $endPos     = explode(RunController::$POS_DELIMITER, $request->input('endPosition'));
