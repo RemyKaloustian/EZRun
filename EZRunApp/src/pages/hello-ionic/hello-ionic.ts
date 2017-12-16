@@ -115,7 +115,8 @@ export class HelloIonicPage {
             this._end_date = new Date();
             this._button_text = "START";
             this._final_time = this._end_date.getTime() - this._start_date.getTime();
-            this._time_text = "You moved for "+ this.getFinalTimeInMinutes() + " minutes.";
+            this._time_text = "You moved for "+ this.getFinalTimeInMinutes() + " minutes";
+            this._time_text += (this.getFinalTimeInSeconds() !== 0) ? "and "+ this.getFinalTimeInSeconds() +" seconds." : "";
 
             //sending request to server
 
