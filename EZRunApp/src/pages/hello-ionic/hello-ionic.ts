@@ -131,7 +131,7 @@ export class HelloIonicPage {
                     })
                     .subscribe(
                         data => {
-                            this.difficulty = data.json().level;
+                            this.difficulty = JSON.stringify(data.json());
                             this.numberOfRuns = data.json().runNumber;
                             this.error = false;
                             console.table(data.json());
