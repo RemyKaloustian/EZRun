@@ -9,6 +9,8 @@
 
   <h3>{{_time_text}}</h3>
 
+  <h5 *ngIf="numberOfRuns"><i>{{ numberOfRuns }} run(s).</i></h5>
+
     <button ion-button color="primary" (click)='ToggleTimer()'>{{_button_text}}</button>
 <p>
   {{_geo_text}}

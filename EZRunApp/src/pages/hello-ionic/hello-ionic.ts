@@ -34,6 +34,7 @@ export class HelloIonicPage {
     public difficulty = null;
     public error = false;
     public errorMsg = "";
+    public numberOfRuns = null;
 
     constructor(private navCtrl: NavController,  private geolocation: Geolocation, private device: Device, private http:Http, private alertCtrl: AlertController)
         { }
@@ -131,6 +132,7 @@ export class HelloIonicPage {
                     .subscribe(
                         data => {
                             this.difficulty = data.json().level;
+                            this.numberOfRuns = data.json().runNumber;
                             this.error = false;
                             console.table(data.json());
                         },
