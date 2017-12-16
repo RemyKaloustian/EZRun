@@ -17,7 +17,7 @@ composer install
 php artisan migrate
 
 if [ -z "$1" ]; then
-    php -S localhost:8080 -t public/
+    php -S 172.20.10.3:8080 -t public/
 else
     php -S "localhost:$1" -t public/
 fi

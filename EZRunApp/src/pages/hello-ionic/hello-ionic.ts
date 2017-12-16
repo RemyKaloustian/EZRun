@@ -29,7 +29,7 @@ export class HelloIonicPage {
 
     // Cette URL (172.20.10.3 ou localhost ou autre) doit etre
     // la même dans le script de lancement de l'API !!
-    public _api_url = "http://localhost:8080/";
+    public _api_url = "http://172.20.10.3:8080/";
 
     public difficulty = null;
     public error = false;
@@ -116,7 +116,7 @@ export class HelloIonicPage {
             this._button_text = "START";
             this._final_time = this._end_date.getTime() - this._start_date.getTime();
             this._time_text = "You moved for "+ this.getFinalTimeInMinutes() + " minutes";
-            this._time_text += (this.getFinalTimeInSeconds() !== 0) ? "and "+ this.getFinalTimeInSeconds() +" seconds." : "";
+            this._time_text += (this.getFinalTimeInSeconds() !== 0) ? " and "+ this.getFinalTimeInSeconds() +" seconds." : ".";
 
             //sending request to server
 
