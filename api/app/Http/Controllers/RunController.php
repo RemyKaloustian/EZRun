@@ -16,9 +16,9 @@ class RunController extends Controller {
 
     private static $POS_DELIMITER = ",";
     private static $LEVELS = [
-        0 => "Facile",
-        1 => "Moyen",
-        2 => "Difficile"
+        0 => "easy",
+        1 => "medium",
+        2 => "hard"
     ];
 
     public function getRunsForUdid($id) {
