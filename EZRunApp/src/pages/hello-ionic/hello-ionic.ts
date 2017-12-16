@@ -135,7 +135,7 @@ export class HelloIonicPage {
                         console.table(data.json());
                     },
                     error => {
-                        this.alert('Error', 'An error occured while trying to communicate with the server.', ['Damn it!']);
+                        this.alert('Error', 'm An error occured while trying to communicate with the server.', ['Damn it!']);
                         this.error = true;
                         this._final_time = JSON.stringify(error.json());
                         console.log(JSON.stringify(error.json()));
