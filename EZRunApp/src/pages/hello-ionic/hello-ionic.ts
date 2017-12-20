@@ -29,7 +29,7 @@ export class HelloIonicPage {
 
     // Cette URL (172.20.10.3 ou localhost ou autre) doit etre
     // la même dans le script de lancement de l'API !!
-    public _api_url = "http://172.20.10.3:8080/";
+    public _api_url = "http://10.212.97.188:8080/";
 
     public difficulty = null;
     public error = false;
