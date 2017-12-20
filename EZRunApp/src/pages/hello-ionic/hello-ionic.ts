@@ -107,6 +107,8 @@ export class HelloIonicPage {
         }
         else if(this._button_text == "STOP")
         {
+            this._geo_text = this._button_text = "Loading...";
+
             this.geolocation.getCurrentPosition().then(pos => {
                 this._end_lat = pos.coords.latitude;
                 this._end_lon = pos.coords.longitude;
