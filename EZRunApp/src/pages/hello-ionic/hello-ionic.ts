@@ -99,6 +99,7 @@ export class HelloIonicPage {
                     this._start_date = new Date();
                     this._time_text = "Running...";
                     this._button_text = "STOP";
+                    this.difficulty = null;
                 },
                 err => {
                     this.alert('Error', 'We were not able to retreive your GPS location.', ['OK']);
@@ -118,8 +119,8 @@ export class HelloIonicPage {
                 this._end_date = new Date();
                 this._button_text = "START";
                 this._final_time = this._end_date.getTime() - this._start_date.getTime();
-                this._time_text = "You moved for "+ this.getFinalTimeInMinutes() + " minutes";
-                this._time_text += (this.getFinalTimeInSeconds() !== 0) ? " and "+ this.getFinalTimeInSeconds() +" seconds." : ".";
+                this._time_text = "You moved for "+ this.getFinalTimeInMinutes() + " minute(s)";
+                this._time_text += (this.getFinalTimeInSeconds() !== 0) ? " and "+ this.getFinalTimeInSeconds() +" second(s)." : ".";
 
                 //sending request to server
 
@@ -138,11 +139,10 @@ export class HelloIonicPage {
                             this.error = false;
                             console.table(data.json());
                         },
-                        error => {
+                        err => {
                             this.alert('Error', 'An error occured while trying to communicate with the server.', ['Damn it!']);
                             this.error = true;
-                            this.errorMsg = error.json().message;
-                            console.log(JSON.stringify(error.json()));
+                            this.errorMsg = JSON.stringify(err);
                         });
             });
         }
