@@ -23,16 +23,15 @@ export class HelloIonicPage {
     public _minutes;
     public _seconds;
     public _geo_text;
-    public _udid = 5468298290002;
+    public _udid = '5468298290002';
     public _button_text = "START";
     public _time_text = "Let's go baby !";
 
 
     //Added after moving to branch demo
 
-    _pageTitle = 'EZRun version 1.0'
-    _startPosition = 'not available';
-    _endPosition = 'not available';
+    _page_title = 'EZRun version 1.0'
+    _result_title = '';
     
     // Cette URL (172.20.10.3 ou localhost ou autre) doit etre
     // la même dans le script de lancement de l'API !!
@@ -101,7 +100,6 @@ export class HelloIonicPage {
                 pos => {
                     this._start_lat = pos.coords.latitude;
                     this._start_lon = pos.coords.longitude;
-                    this._geo_text =" Your position at the start is : " + 'lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude;
 
                     this._start_date = new Date();
                     this._time_text = "Running...";
@@ -128,41 +126,25 @@ export class HelloIonicPage {
                 this._final_time = this._end_date.getTime() - this._start_date.getTime();
                 this._time_text = "You moved for "+ this.getFinalTimeInMinutes() + " minute(s)";
                 this._time_text += (this.getFinalTimeInSeconds() !== 0) ? " and "+ this.getFinalTimeInSeconds() +" second(s)." : ".";
-
-                //sending request to server
-
-                // API URL ?
-                this.http
-                    .post(this._api_url, {
-                        walkTime        : this.getFinalTimeInSeconds(),
-                        startPosition   : this._start_lat +","+this._start_lon,
-                        endPosition     : this._end_lat +","+this._end_lon,
-                        udid            : this._udid
-                    })
-                    .subscribe(
-                        data => {
-                            this.difficulty = data.json().level;
-                            this.numberOfRuns = data.json().runNumber;
-                            this.error = false;
-                            console.table(data.json());
-                        },
-                        err => {
-                            this.alert('Error', 'An error occured while trying to communicate with the server.', ['Damn it!']);
-                            this.error = true;
-                            this.errorMsg = JSON.stringify(err);
-                        });
+                this.ShowResults();
             });
         }
     }//ToggleTimer()
 
+    ShowResults()
+    {
+        this._result_title = 'Base on your previous runs, this one is :';
+        this.difficulty = 'hard';
+    }
+
     ToV1()
     {
-        this._pageTitle = 'EZRun version 1.0';        
+        this._page_title = 'EZRun version 1.0';        
     }
 
     ToV2()
     {
-        this._pageTitle = 'EZRun version 2.0';
+        this._page_title = 'EZRun version 2.0';
     }
 
 }//HelloIonicPage
