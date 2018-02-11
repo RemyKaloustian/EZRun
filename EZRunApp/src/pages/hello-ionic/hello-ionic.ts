@@ -32,7 +32,8 @@ export class HelloIonicPage {
 
     _page_title = 'EZRun version 1.0'
     _result_title = '';
-    
+    public _difficulties = ['easy', 'medium', 'hard']
+
     // Cette URL (172.20.10.3 ou localhost ou autre) doit etre
     // la même dans le script de lancement de l'API !!
     public _api_url = "http://10.212.97.188:8080/";
@@ -135,7 +136,7 @@ export class HelloIonicPage {
     ShowResults()
     {
         this._result_title = 'Base on your previous runs, this one is :';
-        this.difficulty = 'hard';
+        this.difficulty = this._difficulties[Math.floor(Math.random() * (this._difficulties.length - 0) + 0)];
     }
 
     ToV1()
