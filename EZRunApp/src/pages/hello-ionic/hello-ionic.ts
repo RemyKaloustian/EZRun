@@ -33,7 +33,8 @@ export class HelloIonicPage {
     public _page_title = 'EZRun version 1.0'
     public _result_title = '';
     public _difficulties = ['easy 👌', 'medium 💪', 'hard 🙏'];
-    public _v2results = [{time:'2', difficulty:'easy'},{time:'5', difficulty:'hard'} ];
+    public _v2results = [];
+
 
     // Cette URL (172.20.10.3 ou localhost ou autre) doit etre
     // la même dans le script de lancement de l'API !!
@@ -108,6 +109,7 @@ export class HelloIonicPage {
                     this._button_text = "STOP";
                     this.difficulty = null;
                     this._result_title = '';
+                    this._v2results = [];
                 },
                 err => {
                     this.alert('Error', 'We were not able to retreive your GPS location.', ['OK']);
@@ -144,7 +146,8 @@ export class HelloIonicPage {
         else    
         {
             this._result_title = 'Here is your run broken down:';
-            
+
+            this._v2results = this.GetV2Results() ;
         }
        
     }
@@ -154,9 +157,28 @@ export class HelloIonicPage {
         return this._difficulties[Math.floor(Math.random() * (this._difficulties.length - 0) + 0)];
     }
 
+    GetV2Results()
+    {
+        let results = [];
+        let resultsNb = Math.floor(Math.random() * (8 - 4) + 4)
+
+        for (let index = 0; index < resultsNb; index++) 
+        {
+            results.push(
+                {
+                    time:Math.floor(Math.random() * (10 - 5) + 5),
+                    difficulty: this._difficulties[Math.floor(Math.random() * (this._difficulties.length - 0) + 0)]
+                });
+            
+        }
+
+        return results;
+    }
+
     ToV1()
     {
-        this._page_title = 'EZRun version 1.0';        
+        this._page_title = 'EZRun version 1.0';   
+        this.Initialize();     
     }
 
     ToV2()
@@ -170,6 +192,7 @@ export class HelloIonicPage {
         this._time_text = 'Let\'s go baby !';
         this._result_title = '';
         this.difficulty = '';
+        this._v2results = [];
         this._start_lat = '';
         this._start_lon = '';
         this._end_lat = '';
