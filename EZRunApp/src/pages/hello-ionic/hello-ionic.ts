@@ -23,10 +23,17 @@ export class HelloIonicPage {
     public _minutes;
     public _seconds;
     public _geo_text;
-    public _udid = null;
+    public _udid = 5468298290002;
     public _button_text = "START";
     public _time_text = "Let's go baby !";
 
+
+    //Added after moving to branch demo
+
+    _pageTitle = 'EZRun version 1.0'
+    _startPosition = 'not available';
+    _endPosition = 'not available';
+    
     // Cette URL (172.20.10.3 ou localhost ou autre) doit etre
     // la même dans le script de lancement de l'API !!
     public _api_url = "http://10.212.97.188:8080/";
@@ -147,5 +154,15 @@ export class HelloIonicPage {
             });
         }
     }//ToggleTimer()
+
+    ToV1()
+    {
+        this._pageTitle = 'EZRun version 1.0';        
+    }
+
+    ToV2()
+    {
+        this._pageTitle = 'EZRun version 2.0';
+    }
 
 }//HelloIonicPage
