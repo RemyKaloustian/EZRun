@@ -1,5 +1,5 @@
 <ion-header id="navbar">
-  <ion-navbar>
+  <ion-navbar (click)='ChangeVersion()'>
     <ion-title>{{_page_title}}</ion-title>
   </ion-navbar>
 </ion-header>
@@ -25,22 +25,13 @@
 
     <p *ngFor="let res of _v2results" class="v2result">
          For {{res.time}} minutes it was {{res.difficulty}}
-
     </p>
-  </div>
-
- 
+  </div> 
 
   <div id="data-check">
     <h3>Data check</h3>
     <p>Start position :lat: {{_start_lat}} , lng: {{_start_lon}}</p>
     <p>End position : lat: {{_end_lat}} , lng: {{_end_lon}}</p>
     <p>UDID: {{_udid}}</p>
-  </div>
-
-  <div id="version-buttons">
-    <button (click) = 'ToV1()'> V1</button>
-    <button (click) = 'ToV2()'> V2</button>    
-  </div>
-
+  </div>  
 </ion-content>

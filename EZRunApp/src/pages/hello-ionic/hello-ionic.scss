@@ -1,3 +1,5 @@
+
+
 page-hello-ionic {
 
 }
@@ -7,7 +9,7 @@ page-hello-ionic {
 }
 .toolbar-title
 {
-  color: #f5f5f5;;
+  color: #f5f5f5;
 }
 .button
 {
@@ -49,6 +51,7 @@ h4
 
 }
 
+
 .v2result
 {
   font-size: 1.7rem;
@@ -62,4 +65,23 @@ h4
   margin-top: 5%;
   padding-top: 5%;
   color:#953163;
+}
+
+#version-buttons
+{
+  position: fixed;
+  bottom:0px;
+  left:0px;
+  z-index: 33;
+  width:100%;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+#version-buttons button
+{
+  width:48%;
+  height: 70px;
+  background-color: #3f51b5;
+  color: #f5f5f5;
 }

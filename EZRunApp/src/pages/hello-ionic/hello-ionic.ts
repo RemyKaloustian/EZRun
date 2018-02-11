@@ -81,23 +81,6 @@ export class HelloIonicPage {
         //this._udid = this.device.uuid;
         this._udid = "1234567890";
 
-        // this.http
-        //     .post(this._api_url, {
-        //         walkTime        : "1800",
-        //         startPosition   : "1.45343434,2",
-        //         endPosition     : "1.45343434,2",
-        //         udid            : "1234"
-        //     })
-        //     .subscribe(
-        //         data => {
-        //             this.difficulty = data.json().level;
-        //             console.table(data.json());
-        //         },
-        //         error => {
-        //             this.alert('Error', JSON.stringify(error.json()), ['OK']);
-        //             console.log(JSON.stringify(error.json()));
-        //         });
-
         if(this._button_text == "START") {
             this.geolocation.getCurrentPosition().then(
                 pos => {
@@ -148,46 +131,58 @@ export class HelloIonicPage {
             this._result_title = 'Here is your run broken down:';
 
             this._v2results = this.GetV2Results() ;
-        }
-       
+        }       
     }
 
-    GetDifficulty()
+    GetDifficulty() //
     {
         return this._difficulties[Math.floor(Math.random() * (this._difficulties.length - 0) + 0)];
     }
 
-    GetV2Results()
+    GetV2Results() //Simulation of results we'd get for a same run analysis, breaking sections of the run in difficulty
     {
         let results = [];
         let resultsNb = Math.floor(Math.random() * (8 - 4) + 4)
 
         for (let index = 0; index < resultsNb; index++) 
         {
+            //Pushing a random time and random difficulty
             results.push(
                 {
                     time:Math.floor(Math.random() * (10 - 5) + 5),
-                    difficulty: this._difficulties[Math.floor(Math.random() * (this._difficulties.length - 0) + 0)]
+                    difficulty: this.GetDifficulty()
                 });
             
         }
-
         return results;
     }
 
-    ToV1()
+    ToV1() //Displaying V1
     {
         this._page_title = 'EZRun version 1.0';   
         this.Initialize();     
     }
 
-    ToV2()
+    ToV2()//Displaying V2
     {
         this._page_title = 'EZRun version 2.0';
         this.Initialize();
     }
 
-    Initialize()
+    ChangeVersion() //When clicked the navbar
+    {
+        console.log("CHanging version");
+        if(this._page_title.indexOf('1') > -1)
+        {
+            this.ToV2();
+        }
+        else
+        {
+            this.ToV1();
+        }
+    }
+
+    Initialize() //Resetting variables, so that the version displayed is cleaned of the old values
     {
         this._time_text = 'Let\'s go baby !';
         this._result_title = '';
