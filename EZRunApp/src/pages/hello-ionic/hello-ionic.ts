@@ -30,9 +30,10 @@ export class HelloIonicPage {
 
     //Added after moving to branch demo
 
-    _page_title = 'EZRun version 1.0'
-    _result_title = '';
-    public _difficulties = ['easy', 'medium', 'hard']
+    public _page_title = 'EZRun version 1.0'
+    public _result_title = '';
+    public _difficulties = ['easy 👌', 'medium 💪', 'hard 🙏'];
+    public _v2results = [{time:'2', difficulty:'easy'},{time:'5', difficulty:'hard'} ];
 
     // Cette URL (172.20.10.3 ou localhost ou autre) doit etre
     // la même dans le script de lancement de l'API !!
@@ -76,7 +77,7 @@ export class HelloIonicPage {
     }
 
     ToggleTimer() {
-        this._udid = this.device.uuid;
+        //this._udid = this.device.uuid;
         this._udid = "1234567890";
 
         // this.http
@@ -135,8 +136,22 @@ export class HelloIonicPage {
 
     ShowResults()
     {
-        this._result_title = 'Base on your previous runs, this one is :';
-        this.difficulty = this._difficulties[Math.floor(Math.random() * (this._difficulties.length - 0) + 0)];
+        if(this._page_title.indexOf('1') > -1)
+        {
+            this._result_title = 'Based on your previous runs, this one is :';
+            this.difficulty = this.GetDifficulty();
+        }
+        else    
+        {
+            this._result_title = 'Here is your run broken down:';
+            
+        }
+       
+    }
+
+    GetDifficulty()
+    {
+        return this._difficulties[Math.floor(Math.random() * (this._difficulties.length - 0) + 0)];
     }
 
     ToV1()
@@ -147,6 +162,18 @@ export class HelloIonicPage {
     ToV2()
     {
         this._page_title = 'EZRun version 2.0';
+        this.Initialize();
+    }
+
+    Initialize()
+    {
+        this._time_text = 'Let\'s go baby !';
+        this._result_title = '';
+        this.difficulty = '';
+        this._start_lat = '';
+        this._start_lon = '';
+        this._end_lat = '';
+        this._end_lon = '';
     }
 
 }//HelloIonicPage
