@@ -105,6 +105,7 @@ export class HelloIonicPage {
                     this._time_text = "Running...";
                     this._button_text = "STOP";
                     this.difficulty = null;
+                    this._result_title = '';
                 },
                 err => {
                     this.alert('Error', 'We were not able to retreive your GPS location.', ['OK']);
