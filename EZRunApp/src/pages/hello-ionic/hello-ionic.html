@@ -7,31 +7,43 @@
 
 <ion-content padding>
 
-  <h3>{{_time_text}}</h3>
+  <div *ngIf="!_on_stats">
+    <h3>{{_time_text}}</h3>
 
-  <h5 *ngIf="numberOfRuns"><i>{{ numberOfRuns }} run(s).</i></h5>
+    <h5 *ngIf="numberOfRuns"><i>{{ numberOfRuns }} run(s).</i></h5>
 
-  <button ion-button color="primary" (click)='ToggleTimer()'>{{_button_text}}</button>
-  
-  <div *ngIf="error" class="alert alert-danger">
-    {{ errorMsg }}
+    <button ion-button color="primary" (click)='ToggleTimer()'>{{_button_text}}</button>
+    
+    <div *ngIf="error" class="alert alert-danger">
+      {{ errorMsg }}
+    </div>
+
+    <div id="results">
+      <h3 class="result">{{_result_title}}</h3>
+      <h4 *ngIf="difficulty != null" [ngClass]="{'easy': difficulty == 'easy', 'medium': difficulty == 'medium', 'hard': difficulty == 'hard'}">
+          {{ difficulty.toUpperCase() }}
+      </h4>
+
+      <p *ngFor="let res of _v2results" class="v2result">
+          For {{res.time}} minutes it was {{res.difficulty}}
+      </p>
+    </div> 
+
+    <div id="data-check">
+      <h3>Data check</h3>
+      <p>Start position :lat: {{_start_lat}} , lng: {{_start_lon}}</p>
+      <p>End position : lat: {{_end_lat}} , lng: {{_end_lon}}</p>
+      <p>UDID: {{_udid}}</p>
+    </div>  
+    <button ion-button color="primary" (click)='ShowStats()'>STATS</button>
   </div>
 
-  <div id="results">
-    <h3 class="result">{{_result_title}}</h3>
-    <h4 *ngIf="difficulty != null" [ngClass]="{'easy': difficulty == 'easy', 'medium': difficulty == 'medium', 'hard': difficulty == 'hard'}">
-        {{ difficulty.toUpperCase() }}
-    </h4>
-
-    <p *ngFor="let res of _v2results" class="v2result">
-         For {{res.time}} minutes it was {{res.difficulty}}
+  <div *ngIf="_on_stats">
+    <h3 >Stats</h3>     
+    <p *ngFor="let stat of _v1_stats">
+        {{stat.date}}, you ran {{stat.duration}} minutes, it was {{stat.difficulty}}
     </p>
-  </div> 
+    <button ion-button color="primary" (click)='QuitStats()'>BACK</button>
+  </div>
 
-  <div id="data-check">
-    <h3>Data check</h3>
-    <p>Start position :lat: {{_start_lat}} , lng: {{_start_lon}}</p>
-    <p>End position : lat: {{_end_lat}} , lng: {{_end_lon}}</p>
-    <p>UDID: {{_udid}}</p>
-  </div>  
 </ion-content>

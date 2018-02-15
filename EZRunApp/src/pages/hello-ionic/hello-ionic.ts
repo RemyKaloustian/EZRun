@@ -34,6 +34,8 @@ export class HelloIonicPage {
     public _result_title = '';
     public _difficulties = ['easy 👌', 'medium 💪', 'hard 🙏'];
     public _v2results = [];
+    public _on_stats = false;
+    public _v1_stats = [];
 
 
     // Cette URL (172.20.10.3 ou localhost ou autre) doit etre
@@ -192,6 +194,39 @@ export class HelloIonicPage {
         this._start_lon = '';
         this._end_lat = '';
         this._end_lon = '';
+    }
+
+    GetVersion()
+    {
+        if(this._page_title.indexOf('1') > -1)
+            return 1;
+        else
+            return 2;
+    }
+
+    ShowStats()
+    {
+        if(this.GetVersion() == 1)
+        {
+            console.log("Showing V1 sats");
+            this._on_stats = true;
+            this._v1_stats =[ {date:'3/02/2018', duration:'16', difficulty: this._difficulties[0]},
+            {date:'6/02/2018', duration:'55', difficulty: this._difficulties[2]},
+            {date:'10/02/2018', duration:'8', difficulty: this._difficulties[0]},
+            {date:'12/02/2018', duration:'34', difficulty: this._difficulties[1]},
+            {date:'16/02/2018', duration:'40', difficulty: this._difficulties[2]},
+            ];
+        }
+        else
+        {
+            console.log("Showing V2 sats");   
+            this._on_stats = true;         
+        }
+    }
+
+    QuitStats()
+    {
+        this._on_stats = false;
     }
 
 }//HelloIonicPage
