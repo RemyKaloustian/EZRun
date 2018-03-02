@@ -31,7 +31,7 @@ class RunController extends Controller {
 
     private static function getLevelName($level) {
         if ($level < 0 && $level >= count(RunController::$LEVELS))
-            return "Inconnu";
+            return "unknown";
 
         return RunController::$LEVELS[$level];
     }
