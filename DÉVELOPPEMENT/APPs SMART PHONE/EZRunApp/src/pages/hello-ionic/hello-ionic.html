@@ -1,0 +1,71 @@
+<ion-header id="navbar">
+  <ion-navbar (click)='ChangeVersion()'>
+    <ion-title>{{_page_title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <div *ngIf="!_on_stats">
+    <h3>{{_time_text}}</h3>
+
+    <h5 *ngIf="numberOfRuns"><i>{{ numberOfRuns }} run(s).</i></h5>
+
+    <button ion-button color="primary" (click)='ToggleTimer()'>{{_button_text}}</button>
+    
+    <div *ngIf="error" class="alert alert-danger">
+      {{ errorMsg }}
+    </div>
+
+    <div id="results">
+      <h3 class="result">{{_result_title}}</h3>
+      <h4 *ngIf="difficulty != null" [ngClass]="{'easy': difficulty == 'easy', 'medium': difficulty == 'medium', 'hard': difficulty == 'hard'}">
+          {{ difficulty.toUpperCase() }}
+      </h4>
+
+      <p *ngFor="let res of _v2results" class="v2result">
+          For {{res.time}} minutes it was {{res.difficulty}}
+      </p>
+    </div> 
+
+    <div id="data-check">
+      <h3>Data check</h3>
+      <p>Start position :lat: {{_start_lat}} , lng: {{_start_lon}}</p>
+      <p>End position : lat: {{_end_lat}} , lng: {{_end_lon}}</p>
+      <p>UDID: {{_udid}}</p>
+    </div>  
+    <button ion-button color="primary" (click)='ShowStats()'>STATS</button>
+  </div>
+
+  <div *ngIf="_on_stats">
+    <h3 >Stats</h3> 
+    <div *ngIf="_on_v1stats">    
+      <p *ngFor="let stat of _v1_stats">
+          {{stat.date}}, you ran {{stat.duration}} minutes, it was {{stat.difficulty}}
+      </p>
+    </div>
+    <div *ngIf="_on_v2stats">
+        <h5>7/02/2018, you ran 36 minutes</h5>
+          <p>for 15, minutes it was medium 💪</p>
+          <p>for 9, minutes it was easy 👌 </p>
+          <p>for 12, minutes it was hard 🙏</p>
+          
+
+        <h5>11/02/2018, you ran 48 minutes</h5>
+        <p>for 18, minutes it was medium 💪</p>
+        <p>for 30, minutes it was hard 🙏</p>
+        
+
+        <h5>13/02/2018, you ran 30 minutes</h5>
+        <p>for 3, minutes it was easy 👌</p>
+        <p>for 9, minutes it was medium 💪 </p>
+        <p>for 6, minutes it was hard 🙏</p>
+        <p>for 12, minutes it was medium 💪</p>
+        
+        
+    </div>
+    <button ion-button color="primary" (click)='QuitStats()'>BACK</button>
+  </div>
+
+</ion-content>
