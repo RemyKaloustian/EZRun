@@ -2,8 +2,8 @@
 
 This is a IONIC app, in order to publish it, type the following commands at the root of the IONIC app:  
 
-$ ionic cordova plugin rm cordova-plugin-console
-$ ionic cordova build --release android
+$ ionic cordova plugin rm cordova-plugin-console   
+$ ionic cordova build --release android   
 
 
 #### More details here:
