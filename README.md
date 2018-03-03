@@ -28,3 +28,10 @@ Le machine learning calculera tout cela, et retournera le durée niveau de diffi
 ## Plateformes visées
 * iOS
 * Android
+
+## Documentations disponibles
+Déploiement IONIC : DÉPLOIEMENT/APPS SMART PHONE/readme.md   
+Déploiement DOCKER : DÉPLOIEMENT/SERVERS/readme.txt  
+
+Développement front-end : DÉVELOPPEMENT/APPS SMART PHONE/readme.md  
+Développement back-end : DÉVELOPPEMENT/SERVERS/readme.md  
